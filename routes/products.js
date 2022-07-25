@@ -1,28 +1,20 @@
 var express = require('express');
 var router = express.Router();
+const productsController = require('../controllers/productsController');
 
 /* GET products listing. */
-router.get('/', function(req, res, next) {
-  
-  console.log(req.query)
-  const products = [
-    {
-      id:1,
-      name:"moto g",
-      price:100
-    },
-    {
-      id:2,
-      name:"moto x",
-      price:200
-    },
-    {
-      id:3,
-      name:"moto z",
-      price:300
-    }
-  ]
-  res.status(200).json(products)
-});
+router.get('/', productsController.getAll);
+
+/* GET product by ID. */
+router.get('/:id', productsController.getById);
+
+/* SAVE product. */
+router.post('/', productsController.create);
+
+/* UPDATE product. */
+router.put('/:id', productsController.update);
+
+/* DELETE product. */
+router.delete('/:id', productsController.delete);
 
 module.exports = router;
