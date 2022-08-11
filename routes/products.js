@@ -5,8 +5,12 @@ const productsController = require('../controllers/productsController');
 /* GET products listing. */
 router.get('/', productsController.getAll);
 
+/* GET new products. */
+router.get('/destacados', productsController.getNewProducts);
+
 /* GET product by ID. */
 router.get('/:id', productsController.getById);
+
 
 /* SAVE product. */
 router.post('/', productsController.create);
