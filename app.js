@@ -9,7 +9,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productsRouter = require('./routes/products');
 var categoriesRouter = require('./routes/categories')
-var salesRouter = require('./routes/sales')
 
 var app = express();
 app.set("secretKey","key")
@@ -26,9 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /** Routes */
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/products",verifyToken,productsRouter)
+app.use('/products',productsRouter)
 app.use('/categories', categoriesRouter);
-app.use("/sales",salesRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,14 +35,10 @@ app.use(function(req, res, next) {
 
 /* Verificacion de Token */
 function verifyToken(req,res,next){
-  jwt.verify(req.headers["x-access-token"],req.app.get("secretKey"),function(err,decoded){
+  jwt.verify(req.headers["x-access-token"],req.app.get("secretKey"),function(err,decoded){ //decode devuelve la info asociada al token que pusimos en el controller ({userId:user._id,rol:"admin"})
     if(err){
       res.json({message:err.message})
     }else{
-      // if(decoded.rol==="admin"){
-      //   next()
-      // }
-      //console.log(decoded)
       next()
       
     }

@@ -4,6 +4,9 @@ const usersController = require("../controllers/usersController")
 /* GET users listing. */
 router.get('/', usersController.getAll);
 
+/* GET user by ID. */
+router.get('/:id', usersController.getById);
+
 /* SAVE user. */
 router.post('/', usersController.create);
 
